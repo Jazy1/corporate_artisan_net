@@ -1,0 +1,76 @@
+Login
+    Company (Done)
+    Freelancer (Done)
+    Designing for both
+    Protection (Done)
+    Through social media
+
+Sign up
+    Company (Done)
+    Freelancer (Done)
+    Designing for both
+    Protection (Done)
+    Through social media
+
+
+ENTITIES:
+    Freelancer
+        id
+        name
+        email
+        password
+
+    Company
+        id
+        name
+        email
+        password
+        address
+
+    Transactions
+        id
+        number
+        from
+        to
+        amount
+        status: paid, pending, cancelled
+
+    Cards
+        id
+        user_id
+        holded_by: freelancer, company, Admin
+        holder
+        expire
+        number
+
+    Admin
+        id
+        name
+        email
+        password
+
+Do Freelancer first
+Then do Company
+
+Freelancer
+    register
+    login
+    dashboard (greetings, show gigs)
+
+
+Admin
+    login
+    
+    dashboard (on the glance info about number of freelancers, no of companies, no of transactions made that day, Total amount in bank)
+    settings (admin info, add admin)
+
+    freelancer's data (Table of all the freelancers, Show freelancer's activity)
+
+    company's data (Table of all the companies, Show companies activity)
+
+    finances (Total amount of cash, info about transactions happened that day, Deposit money, Withdraw Money)
+
+        
+
+
+
