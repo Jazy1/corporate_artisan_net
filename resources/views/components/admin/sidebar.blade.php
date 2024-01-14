@@ -21,7 +21,7 @@
                         </a>
                     </li>
                     <li class="sidebar__menu-item">
-                        <a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#freelancers"
+                        <a class="sidebar__link" data-toggle="collapse" data-target="#freelancers"
                             aria-expanded="false">
                             <span class="sidebar__link-icon">
                                 <i class="fa-solid fa-laptop"></i>
@@ -36,15 +36,15 @@
                         <div class="collapse" id="freelancers">
                             <ul class="sidebar__collapse-menu">
                                 <li class="sidebar__menu-item">
-                                    <a class="sidebar__link" href="products.html"><span
+                                    <a class="sidebar__link" href="{{ route("admin.freelancers.index") }}"><span
                                             class="sidebar__link-signal"></span><span
-                                            class="sidebar__link-text">Products</span></a>
+                                            class="sidebar__link-text">Dashboard</span></a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="sidebar__menu-item">
-                        <a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#companies"
+                        <a class="sidebar__link" data-toggle="collapse" data-target="#companies"
                             aria-expanded="false">
                             <span class="sidebar__link-icon">
                                 <i class="fa-solid fa-building"></i>
@@ -59,15 +59,15 @@
                         <div class="collapse" id="companies">
                             <ul class="sidebar__collapse-menu">
                                 <li class="sidebar__menu-item">
-                                    <a class="sidebar__link" href="products.html"><span
+                                    <a class="sidebar__link" href="{{ route("admin.companies.index") }}"><span
                                             class="sidebar__link-signal"></span><span
-                                            class="sidebar__link-text">Products</span></a>
+                                            class="sidebar__link-text">Dashboard</span></a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="sidebar__menu-item">
-                        <a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#finances"
+                        <a class="sidebar__link" data-toggle="collapse" data-target="#finances"
                             aria-expanded="false">
                             <span class="sidebar__link-icon">
                                 <i class="fa-solid fa-coins"></i>
@@ -82,9 +82,22 @@
                         <div class="collapse" id="finances">
                             <ul class="sidebar__collapse-menu">
                                 <li class="sidebar__menu-item">
-                                    <a class="sidebar__link" href="products.html"><span
-                                            class="sidebar__link-signal"></span><span
-                                            class="sidebar__link-text">Products</span></a>
+                                    <a class="sidebar__link" href="{{ route("admin.finances.index") }}">
+                                        <span class="sidebar__link-signal"></span>
+                                        <span class="sidebar__link-text">Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar__menu-item">
+                                    <a class="sidebar__link" href="{{ route("admin.finances.deposit") }}">
+                                        <span class="sidebar__link-signal"></span>
+                                        <span class="sidebar__link-text">Deposit Money</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar__menu-item">
+                                    <a class="sidebar__link" href="{{ route("admin.finances.withdraw") }}">
+                                        <span class="sidebar__link-signal"></span>
+                                        <span class="sidebar__link-text">Withdraw Money</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

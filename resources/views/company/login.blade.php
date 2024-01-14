@@ -648,7 +648,7 @@
                 </div>
                 <div class="page-auth__left">
                     <h1 class="page-auth__title">Corporate Artisan <span class="text-theme">Net</span></h1>
-                    <p class="page-auth__text">Artisan's mission is to change how the world works together. Artisan connects businesses with freelancers offering digital services in 500+ categories.</p>
+                    <p class="page-auth__text">Artisan's mission is to change how the world works together. Artisan connects businesses with freelancers offering digital services in 30+ categories.</p>
                 </div>
                 <div class="page-auth__right">
                     <div class="auth-panel">
@@ -658,7 +658,9 @@
                                     <div class="auth-panel__body-wrapper">
                                         <div class="auth-panel__logotype">
                                             <div class="auth-logo">
-                                                <img class="auth-logo__icon" src="{{ asset("img/content/logotype.svg")}}" width="44" alt="#" />
+                                                <a href="{{ route("public.home") }}">
+                                                    <img class="auth-logo__icon" src="{{ asset("img/content/logotype.svg")}}" width="44" alt="#" />
+                                                </a>
                                                 <div class="auth-logo__text"> Company Login</div>
                                             </div>
                                             <p class="auth-panel__text">Please login to your account.</p>
@@ -724,7 +726,7 @@
                                             @csrf
                                         </form>
                                         <div class="auth-panel__divider">OR</div>
-                                        <div class="auth-panel__social">
+                                        {{-- <div class="auth-panel__social">
                                             <a class="auth-panel__social-link" href="#">
                                                 <img src="{{ asset("img/content/s-facebook.svg") }} " alt="#">
                                             </a>
@@ -737,7 +739,7 @@
                                             <a class="auth-panel__social-link" href="#">
                                                 <img src="{{ asset("img/content/s-pinterest.svg") }} " alt="#">
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="auth-panel__footer">

@@ -44,6 +44,18 @@ return [
             'throw' => false,
         ],
 
+        'gig-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/gig-images'),
+            'visibility' => 'public',
+        ],
+        
+        'profile-pictures' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/img/profile-pictures'),
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

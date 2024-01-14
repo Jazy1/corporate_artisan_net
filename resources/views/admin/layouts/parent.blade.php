@@ -624,13 +624,12 @@
             </div>
         </div>
     </div>  --}}
-
     <div class="sidebar-backdrop"></div>
 
     <div class="page-wrapper">
 
         {{-- Header --}}
-        <x-admin.header />
+        <x-admin.header :admin="$admin"/>
             
         {{-- sidebar --}}
         <x-admin.sidebar />

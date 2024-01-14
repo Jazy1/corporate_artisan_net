@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'AuthCheckCompany' => \App\Http\Middleware\AuthCheckCompany::class,
         'AlreadyLoggedAdmin' => \App\Http\Middleware\AlreadyLoggedAdmin::class,
         'AuthCheckAdmin' => \App\Http\Middleware\AuthCheckAdmin::class,
+        'PassCompanyData' => \App\Http\Middleware\PassCompanyData::class,
     ];
 }

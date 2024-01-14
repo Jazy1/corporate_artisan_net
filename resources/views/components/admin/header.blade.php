@@ -10,10 +10,10 @@
                             data-toggle="dropdown">
                             <div class="header__profile-image">
                                 <span class="header__profile-image-text">MA</span>
-                                <img src=" {{ asset("img/content/humans/item-4.jpg") }} " alt="#" />
+                                <img src=" {{ asset($admin->img) }} " alt="#" />
                             </div>
                             <div class="header__profile-text">
-                                <span>Mark Anderson</span>
+                                <span>{{$admin->name}}</span>
                             </div>
                             <span class="icon-arrow-down">
                                 <svg class="icon-icon-arrow-down">

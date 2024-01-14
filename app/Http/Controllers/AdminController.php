@@ -5,55 +5,57 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\BankAccounts;
+use App\Models\Company;
+use App\Models\Freelancer;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+
+    public function dashboard(Request $request){
+        $admin = Admin::find($request->admin->id);
+
+        // Fetch total counts
+        $freelancerCount = Freelancer::count();
+        $companyCount = Company::count();
+        $transactionCount = Transactions::count();
+
+        // Fetch bank account current amount (assuming there's only one bank account for the admin)
+        $bankAccount = BankAccounts::where('user_type', 'admin')->where('user_id', $admin->id)->first();
+        $currentAmount = $bankAccount ? $bankAccount->current_balance : 0;
+
+        // Fetch data of the last 5 transactions
+        $lastTransactions = Transactions::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view("admin.dashboard", [
+            "admin" => $admin,
+            "request" => $request,
+            "freelancerCount" => $freelancerCount,
+            "companyCount" => $companyCount,
+            "transactionCount" => $transactionCount,
+            "currentAmount" => $currentAmount,
+            "lastTransactions" => $lastTransactions,
+        ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function dashboard()
-    {
-        return view("admin.dashboard");
+    function profilePage(Request $request) {
+        $admin = Admin::find($request->admin->id);
+        $bankAccount = BankAccounts::where("user_type", "admin")->where("user_id", $request->admin->id)->first();
+        return view("admin.profile", [
+            "admin" => $admin,
+            "bankAccount" => $bankAccount
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreAdminRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Show the login form
-     */
-    public function loginForm()
-    {
+    public function loginForm(){
         return view('admin.login');
     }
 
-    /**
-     * Log the admin in
-     */
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');
         
@@ -76,9 +78,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Log the user out.
-     */
     public function logout(){
         if (session()->has('LoggedAdmin')) {
             session()->pull("LoggedAdmin");
@@ -88,35 +87,164 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
+    function financesDashboard(Request $request) {
+        $admin = Admin::find($request->admin->id);
+
+        // Retrieve bank account current balance (assuming there's only one bank account for the admin)
+        $bankAccount = BankAccounts::where('user_type', 'admin')->where('user_id', $admin->id)->first();
+        $currentBalance = $bankAccount ? $bankAccount->current_balance : 0;
+
+        // Retrieve recent 10 transactions
+        $lastTransactions = Transactions
+            ::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        return view("admin.finances.dashboard", [
+            "admin" => $admin,
+            "currentBalance" => $currentBalance,
+            "lastTransactions" => $lastTransactions,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admin $admin)
-    {
-        //
+    function depositPage(Request $request) {
+        $admin = Admin::find($request->admin->id);
+        $bankAccount = BankAccounts::where("user_type", "admin")->where("user_id", $request->admin->id)->first();
+
+
+        return view("admin.finances.deposit", [
+            "admin" => $admin,
+            "bankAccount" => $bankAccount
+        ]);
+    }
+    
+    public function depositCash(Request $request){
+        $admin = Admin::find($request->admin->id); // Assuming the admin is authenticated
+        $amount = $request->input('amount');
+
+        // Validate the amount (add more validation as needed)
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Retrieve the bank account associated with the admin
+        $bankAccount = BankAccounts::where('user_type', 'admin')->where('user_id', $admin->id)->first();
+
+        if (!$bankAccount) {
+            return response()->json(['error' => 'Bank account not found'], 404);
+        }
+
+        // Update the current_balance
+        $bankAccount->current_balance += $amount;
+        $bankAccount->save();
+
+        // You can also create a new transaction record in the transactions table if needed
+
+        // Return the updated bank account information
+        return response()->json(['current_balance' => $bankAccount->current_balance]);
+    }
+    
+    function withdrawPage(Request $request) {
+        $admin = Admin::find($request->admin->id);
+        $bankAccount = BankAccounts::where('user_type', 'admin')->where('user_id', $admin->id)->first();
+        $currentAmount = $bankAccount ? $bankAccount->current_balance : 0;
+
+        return view("admin.finances.withdraw", [
+            "admin" => $admin,
+            "currentAmount" => $currentAmount,
+            "bankAccount" => $bankAccount
+        ]);
+    }
+    
+    public function withdrawCash(Request $request){
+        $admin = Admin::find($request->admin->id); // Assuming the admin is authenticated
+        $amount = $request->input('amount');
+
+        // Validate the amount (add more validation as needed)
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Retrieve the bank account associated with the admin
+        $bankAccount = BankAccounts::where('user_type', 'admin')->where('user_id', $admin->id)->first();
+
+        if (!$bankAccount) {
+            return response()->json(['error' => 'Bank account not found'], 404);
+        }
+
+        // Check if the withdrawal amount is greater than the current balance
+        if ($amount > $bankAccount->current_balance) {
+            return response()->json(['error' => 'Insufficient funds'], 422);
+        }
+
+        // Update the current_balance
+        $bankAccount->current_balance -= $amount;
+        $bankAccount->save();
+
+        // You can also create a new transaction record in the transactions table if needed
+
+        // Return the updated bank account information
+        return response()->json(['current_balance' => $bankAccount->current_balance]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAdminRequest $request, Admin $admin)
-    {
-        //
+    public function freelancerDashboard(Request $request){
+        $admin = Admin::find($request->admin->id);
+        $freelancers = Freelancer::all();
+
+        return view("admin.freelancer.index", [
+            "admin" => $admin,
+            "freelancers" => $freelancers,
+        ]);
+    }
+    
+    public function companiesDashboard(Request $request){
+        $admin = Admin::find($request->admin->id);
+        $companies = Company::all();
+
+        return view("admin.company.index", [
+            "admin" => $admin,
+            "companies" => $companies,
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
+    public function update(Request $request, $id){
+        $admin = Admin::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:freelancers,email,' . $admin->id,
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120', // 5MB limit
+            'password' => 'nullable',
+        ]);
+
+        // Delete old profile image if it exists and not named "default.svg"
+        if ($admin->image && $admin->image !== '/img/profile-pictures/default.svg') {
+            Storage::disk('profile-pictures')->delete($admin->image);
+        }
+
+        // Update name and email
+        $admin->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        // Update profile image
+        if ($request->hasFile('img')) {
+            $imageName = time() . '_' . $request->file('img')->getClientOriginalName();
+            $path = $request->file('img')->storeAs('img/profile-pictures/', $imageName, 'public');
+
+            $admin->update([
+                'img' => 'storage/img/profile-pictures/' . $imageName,
+            ]);
+        }
+
+        // Update password if provided
+        if ($request->filled('password')) {
+            $admin->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
+        return redirect()->route('admin.profile')->with('success', 'Profile updated successfully.');
     }
 }

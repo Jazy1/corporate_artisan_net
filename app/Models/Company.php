@@ -10,10 +10,15 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'img', 'email', 'password', 'address'
     ];
 
     protected $hidden = [
         'password'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

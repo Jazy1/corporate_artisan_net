@@ -679,7 +679,7 @@
                                             @csrf
                                         </form>
                                         <div class="auth-panel__divider">OR</div>
-                                        <div class="auth-panel__social">
+                                        {{-- <div class="auth-panel__social">
                                             <a class="auth-panel__social-link" href="#">
                                                 <img src="{{ asset("img/content/s-facebook.svg") }} " alt="#">
                                             </a>
@@ -692,7 +692,7 @@
                                             <a class="auth-panel__social-link" href="#">
                                                 <img src="{{ asset("img/content/s-pinterest.svg") }} " alt="#">
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="auth-panel__footer">
