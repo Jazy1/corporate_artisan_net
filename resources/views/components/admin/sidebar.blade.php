@@ -132,6 +132,15 @@
                             <span class="sidebar__link-text">Meetings</span>
                         </a>
                     </li>
+
+                    <li class="sidebar__menu-item">
+                        <a class="sidebar__link " href="https://discord.gg/FKHWM6xP" aria-expanded="true" target="_blank">
+                            <span class="sidebar__link-icon">
+                                <i class="far fa-envelope"></i>
+                            </span>
+                            <span class="sidebar__link-text">Messages</span>
+                        </a>
+                    </li>
                     
                 </ul>
             </nav>
