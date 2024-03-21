@@ -171,7 +171,7 @@
                                                                                         <svg class="icon-icon-view">
                                                                                             <use xlink:href="#icon-view">
                                                                                             </use>
-                                                                                        </svg></span>View</a>
+                                                                                        </svg></span>View Report</a>
                                                                             </li>
                                                                             {{-- <li class="dropdown-items__item"><a target="_blank"
                                                                                     class="dropdown-items__link"

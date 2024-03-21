@@ -32,8 +32,8 @@
 									<div class="wt-formoptions">
 										{{-- <div class="wt-dropdown">
 											<span>In: <em class="selected-search-type">Freelancers </em><i class="lnr lnr-chevron-down"></i></span>
-										</div>
-										<div class="wt-radioholder">
+										</div> --}}
+										{{-- <div class="wt-radioholder">
 											<span class="wt-radio">
 												<input id="wt-freelancers" data-title="Freelancers" type="radio" name="searchtype" value="freelancer" checked>
 												<label for="wt-freelancers">Freelancers</label>
@@ -46,13 +46,67 @@
 												<input id="wt-company"  data-title="Companies" type="radio" name="searchtype" value="job">
 												<label for="wt-company">Companies</label>
 											</span>
-										</div> --}}
+										</div>  --}}
 										<button type="submit" class="wt-searchbtn">
 											<i class="lnr lnr-magnifier"></i>
 										</button>
 									</div>
 								</div>
 							</fieldset>
+
+							{{-- <script>
+								document.getElementById('query').addEventListener('input', function() {
+									var query = this.value.trim();
+									if (query.length > 0) {
+										// Make an AJAX request to your Laravel backend
+										fetchSearchSuggestions(query);
+									} else {
+										// Clear the search suggestions box if the query is empty
+										document.querySelector('.search-suggestions').innerHTML = '';
+									}
+								});
+							
+								function fetchSearchSuggestions(query) {
+									// Make an AJAX request to your Laravel backend
+									fetch('{{route("public.search.suggestions")}}', {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+											'X-CSRF-TOKEN': '{{ csrf_token() }}'
+										},
+										body: JSON.stringify({ query: query })
+									})
+									.then(response => response.json())
+									.then(data => {
+										// Populate the search suggestions box with the returned suggestions
+										var suggestionsHTML = data.map(item => 
+							
+										`
+										
+										<span class="wt-radio">
+											<input id="wt-${item.id}" data-title="${item.title}" type="radio" name="searchtype" value="${item.title}">
+											<label for="wt-${item.id}">${item.title}</label>
+										</span>
+										
+										`).join('');
+										document.querySelector('.search-suggestions').innerHTML = suggestionsHTML;
+									})
+									.catch(error => {
+										console.error('Error:', error);
+									});
+								}
+							
+								document.querySelector('.search-suggestions').addEventListener('click', function(event) {
+									// Check if the clicked element is an input element
+									if (event.target.tagName === 'INPUT') {
+										// Get the title of the clicked suggestion
+										var title = event.target.getAttribute('data-title');
+										
+										// Update the value of the search box with the title of the clicked suggestion
+										document.getElementById('query').value = title;
+									}
+								});
+							</script> --}}
 						</form>
 						<div class="wt-videoholder">
 							<div class="wt-videoshow">

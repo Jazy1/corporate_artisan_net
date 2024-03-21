@@ -9,6 +9,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use App\Models\Category;
 use App\Models\Freelancer;
+use App\Models\Gig;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +35,8 @@ Route::middleware(["PassCompanyData"])->group(function() {
     Route::get('/{id}/company', [FreelancerController::class, "show"])->name("public.company.show");
     Route::get('/team', [PublicController::class, "team"])->name("public.team");
 });
+
+Route::post('/search-suggestions', [PublicController::class, "searchSuggestions"])->name("public.search.suggestions");
 
 Route::prefix("orders")->group(function(){
     Route::middleware(["AuthCheckCompany"])->group(function(){

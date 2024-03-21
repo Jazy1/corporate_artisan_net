@@ -68,7 +68,7 @@ ENTITIES:
     Gigs
         id
         freelancer_id
-        tile
+        title
         description
         category_id
         price
@@ -245,4 +245,29 @@ TODO:
     -Front End of public side (Done) 
     -sm integration
     -update entities (Done)
-    -Order Placement
+    -Order Placement (Done)
+
+
+"Professional" Response for their supervisors
+
+    Recommendation System:
+        Will use javascript's XHR apis to suggest and complete the user's search query.
+
+    Collaboration Hub:
+        We'll use CHATIW apis where user can send messages and pictures
+    For meeting:
+        We'll use zoom apis for in app meetings and other settings.
+
+    Shared 3d environment:
+        We'll use 3dviewer apis where we can inspect and open our 3d files.
+
+    Data analytics and reporting:
+        Report will be generated on admin side where the data about whole ecosystem will be generated showing the number of transactions, amount of transactions, total working freelancers, companies and the highest performing gigs.
+
+    Company relationship module:
+        An agreement will be generated before the order has been alloted to freelancer where numerous details such as deadline, amount and working hours will be decided. Kind of like a contract.
+
+    AI enhanced AR module:
+        The 2d assets will be converted to 3d assets using vectary AI library
+
+New shit

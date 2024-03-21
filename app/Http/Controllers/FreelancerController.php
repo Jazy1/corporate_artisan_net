@@ -214,10 +214,14 @@ class FreelancerController extends Controller
     function show(Request $request, $id) {
         $categories = Category::all();
         $freelancer = Freelancer::findOrFail($id);
+        $bankAccount = BankAccounts::where('user_type', 'freelancer')->where('user_id', $freelancer->id)->first();
+        $currentBalance = $bankAccount ? $bankAccount->current_balance : 0;
 
         return view("public.freelancer", [
             "categories" => $categories,
             "freelancer" => $freelancer,
+            "bankAccount" => $bankAccount,
+            "currentBalance" => $currentBalance
         ]);
     }
 

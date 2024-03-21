@@ -288,7 +288,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td class="table__td">
-                                                                    <span class="text-grey">{{ \Carbon\Carbon::parse($lastTransaction->created_at)->format('d-m-Y h:i:s A') }} </span>
+                                                                    <span class="text-grey">{{ \Carbon\Carbon::parse($lastTransaction->created_at)->format('d-m-Y   ') }} </span>
                                                                 </td>
                                                                 <td class="table__td">
                                                                     <span>${{ $lastTransaction->amount }}</span>

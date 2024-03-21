@@ -57,21 +57,21 @@
 									</div>
 									<div id="wt-statistics" class="wt-statistics wt-profilecounter">
 										<div class="wt-statisticcontent wt-countercolor1">
-											<h3 data-from="0" data-to="03" data-speed="800" data-refresh-interval="03">03</h3>
+											<h3 data-from="0" data-to="{{ count($freelancer->orders()->where('status', 'pending')->get()) }}" data-speed="800" data-refresh-interval="03">{{ count($freelancer->orders()->where('status', 'pending')->get()) }}</h3>
 											<h4>Ongoing <br>Projects</h4>
 										</div>
 										<div class="wt-statisticcontent wt-countercolor2">
-											<h3 data-from="0" data-to="1503" data-speed="8000" data-refresh-interval="100">1503</h3>
+											<h3 data-from="0" data-to="{{ count($freelancer->orders()->where('status', 'completed')->get()) }}" data-speed="8000" data-refresh-interval="03">{{ count($freelancer->orders()->where('status', 'pending')->get()) }}</h3>
 											<h4>Completed <br>Projects</h4>
 										</div>
 										<div class="wt-statisticcontent wt-countercolor4">
-											<h3 data-from="0" data-to="02" data-speed="800" data-refresh-interval="02">02</h3>
+											<h3 data-from="0" data-to="{{ count($freelancer->orders()->where('status', 'cancelled')->get()) }}" data-speed="800" data-refresh-interval="02">{{ count($freelancer->orders()->where('status', 'cancelled')->get()) }}</h3>
 											<h4>Cancelled <br>Projects</h4>
 										</div>
 										<div class="wt-statisticcontent wt-countercolor3">
-											<h3 data-from="0" data-to="25" data-speed="8000" data-refresh-interval="100">25</h3>
-											<em>k</em>
-											<h4>Served <br>Hours</h4>
+											<h3 data-from="0" data-to="{{ $currentBalance }}" data-speed="8000" data-refresh-interval="100">{{ $currentBalance }}</h3>
+											{{-- <em>k</em> --}}
+											<h4>Total <br>Earning</h4>
 										</div>
 										<div class="wt-description">
 											<p>* Artisan is not resposible if someone scams you</p>

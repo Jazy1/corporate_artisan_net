@@ -49,4 +49,10 @@ class PublicController extends Controller
             "freelancerCount" => $freelancerCount,
         ]);
     }
+
+    function searchSuggestions(Request $request) {
+        $query = $request->input('query');
+        $suggestions = Gig::where('title', 'like', "%$query%")->latest()->take(10)->get(['id', 'title']);
+        return response()->json($suggestions);
+    }
 }

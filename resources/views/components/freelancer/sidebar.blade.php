@@ -126,6 +126,32 @@
                         </div>
 
                     </li> 
+                    <li class="sidebar__menu-item">
+                        <a class="sidebar__link " href="https://www.vectary.com/" aria-expanded="true" target="_blank">
+                            <span class="sidebar__link-icon">
+                                <i class="fas fa-cube"></i>
+                            </span>
+                            <span class="sidebar__link-text">3d and AR</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar__menu-item">
+                        <a class="sidebar__link " href="https://3dviewer.net/" aria-expanded="true" target="_blank">
+                            <span class="sidebar__link-icon">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                            <span class="sidebar__link-text">3d Viewer</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar__menu-item">
+                        <a class="sidebar__link " href="https://meet.google.com/" aria-expanded="true" target="_blank">
+                            <span class="sidebar__link-icon">
+                                <i class="far fa-calendar-alt"></i>
+                            </span>
+                            <span class="sidebar__link-text">Meetings</span>
+                        </a>
+                    </li>
 
                 </ul>
             </nav>

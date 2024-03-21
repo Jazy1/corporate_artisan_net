@@ -12,6 +12,7 @@
     <a href="{{ route("freelancers.bank_account.update", ['id' => 1]) }}">
         Bitch
     </a>
+
 </body>
 
 
